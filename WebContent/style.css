@@ -1,0 +1,89 @@
+@CHARSET "ISO-8859-1";
+/**************************************************
+*
+*					Main
+*
+***************************************************/
+body{
+	width: 100%;
+	background-color: #C7E8C3;
+}
+
+#section {
+	background-color: #FFF;
+	border-color: 99BA95;
+	min-height: 300px;
+	width: 80%;
+	margin: 5% 10% 5% 10%;
+}
+
+#footer {
+	text-align : center;
+}
+
+/****************************************************
+*
+*					Headers
+*
+*****************************************************/
+h1{
+	text-align : center;
+}
+
+/****************************************************
+*
+*					MENU
+*
+******************************************************/
+#nav {
+	top: 0;
+	text-align :center;
+	width: 100%;
+	background-color: #000;
+	min-height: 75px;
+}
+ul {
+	padding:0;
+	margin:0;
+	list-style-type:none;
+}
+li {
+	width: 20%;
+	float:left; /*pour IE*/
+	border-left:1px solid black;
+}
+ul li a {
+	display:block;
+	padding: 5%;
+	line-height:50px; /*hauteur de l'image de fond*/
+	background-color: #000;
+	color:#fff;
+	text-decoration:none;
+	text-align:center;
+}
+ul li a:hover {
+	background-color: #fff;
+	color: #000;
+}  
+
+/****************************************************
+*
+*						Login
+*
+*****************************************************/
+#login{
+	text-align: center;
+	float: right;
+	margin: 5% 10% 0 0;
+	
+}
+
+/****************************************************
+*
+*					PAGE
+*
+****************************************************/
+#page {
+	float: left;
+	width: 75%;
+}

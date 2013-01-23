@@ -45,6 +45,9 @@ public class UserController extends HttpServlet {
 
 		 response.getWriter().println("hsqfey");
 		response.getWriter().println(request.getPathInfo());
+		
+		/* RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/list.jsp"); 
+		dispatcher.forward(request, response); */
 		/*if (request.getPathInfo().substring(0, 12).equals("/inscription")) {
 			inscription(request, response);
 		} else if (request.getPathInfo().substring(0, 14).equals("/myReservation")) {

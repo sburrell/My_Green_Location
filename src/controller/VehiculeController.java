@@ -1,12 +1,7 @@
 package controller;
 
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.List;
 
-import javax.persistence.EntityManager;
-import javax.persistence.Persistence;
-import javax.persistence.Query;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -34,7 +29,7 @@ public class VehiculeController extends HttpServlet{
 	 */
 	protected void listVehicles(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
 		//get all vehicles
-		if(request.getMethod().equals("GET")){
+		/* if(request.getMethod().equals("GET")){
 			List myVehicules = db.getAll("vehicules");
 		}else{
 			// get vehicles by search
@@ -53,10 +48,11 @@ public class VehiculeController extends HttpServlet{
 							"and lower(v.marque) like lower('%"+marqueStr+"%') " +
 									"and v.prix<="+prixStr;
 			List myVehicles = db.get(query);
-		    request.setAttribute("Vehicules", myVehicles);
-		}
+		    request.setAttribute("Vehicules", myVehicles); 
+		
+		}*/
 		//redirect vers vue jsp (@param myVehicles)
-		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/Vehicules.jsp"); 
+		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/list.jsp"); 
 		dispatcher.forward(request, response);
 		
 	}
@@ -84,7 +80,7 @@ public class VehiculeController extends HttpServlet{
 	 */
 	@SuppressWarnings("unchecked")
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+		response.getWriter().println("Salut");
 	}
 	
 	/**

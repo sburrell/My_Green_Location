@@ -17,18 +17,10 @@
   	<servlet-name>user</servlet-name>
   	<servlet-class>controller.UserController</servlet-class>
   </servlet>
-  <servlet>
-  	<servlet-name>user</servlet-name>
-  	<servlet-class>controller.UserController</servlet-class>
-  </servlet>
 
   <servlet-mapping>
   	<servlet-name>vehicule</servlet-name>
   	<url-pattern>/vehicule/*</url-pattern>
-  </servlet-mapping>
-  <servlet-mapping>
-  	<servlet-name>user</servlet-name>
-  	<url-pattern>/user/*</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
   	<servlet-name>user</servlet-name>

@@ -16,8 +16,8 @@ public class UserController extends HttpServlet {
 
 	protected void view(String jspFile, HttpServletRequest request, HttpServletResponse response) 
 			throws IOException, ServletException {
-		RequestDispatcher rd = request.getRequestDispatcher("/user/" + jspFile);
-		rd.forward(request, response);
+	//	RequestDispatcher rd = request.getRequestDispatcher("/user/" + jspFile);
+	//	rd.forward(request, response);
 	}
 	
 	protected void authentification(HttpServletRequest request, HttpServletResponse response) 
@@ -42,18 +42,11 @@ public class UserController extends HttpServlet {
 	
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
-
-		 response.getWriter().println("hsqfey");
-		response.getWriter().println(request.getPathInfo());
 		
-		/* RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/list.jsp"); 
-		dispatcher.forward(request, response); */
-		/*if (request.getPathInfo().substring(0, 12).equals("/inscription")) {
-			inscription(request, response);
-		} else if (request.getPathInfo().substring(0, 14).equals("/myReservation")) {
-			myReservations(request, response);
-		} */
-		//view("authentification.jsp", request, response);
+			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/profile.jsp"); 
+			dispatcher.forward(request, response);
+
+		
 	}
 }
 

@@ -1,1 +1,0 @@
-<div id="footer">Tous droits réservés à Green Location - 2013</div>

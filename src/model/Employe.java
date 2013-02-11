@@ -1,7 +1,11 @@
 package model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.*;
+
 import model.Utilisateur;
 
 /**
@@ -11,13 +15,22 @@ import model.Utilisateur;
 @Entity
 
 public class Employe extends Utilisateur implements Serializable {
-
 	
 	private static final long serialVersionUID = 1L;
 	
 	private String fonction;
 	private String nom;
 	private String prenom;
+	
+	@OneToMany(mappedBy = "employe")
+	private final List<Reservation> reservations = new ArrayList<Reservation>();
+	
+	@OneToMany(mappedBy = "employe")
+	private final List<Contrat> contrats = new ArrayList<Contrat>();
+	
+	public List<Reservation> getReservations() {
+	    return reservations;
+	  }
 
 	public Employe(String fonction, String nom, String prenom) {
 		super();

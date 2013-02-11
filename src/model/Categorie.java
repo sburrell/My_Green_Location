@@ -1,7 +1,12 @@
 package model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.*;
+
+import model.Vehicule;
 
 /**
  * Entity implementation class for Entity: Categorie
@@ -10,8 +15,10 @@ import javax.persistence.*;
 @Entity
 public class Categorie implements Serializable {
 
-	
 	private static final long serialVersionUID = 1L;
+	
+	@Id
+	@GeneratedValue(strategy=GenerationType.TABLE)
 	private Long id;
 	private String nom;
 	private int prix;
@@ -20,9 +27,10 @@ public class Categorie implements Serializable {
 	private int nbPlaces;
 	private int coffreContenanceEnM3;
 	private int CO2;
+	
+	@OneToMany(mappedBy = "categorie")
+	private final List<Vehicule> vehicules = new ArrayList<Vehicule>();
 
-	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	public Long getId() {return id;}
 	public void setId(Long id) {this.id = id;}
 
@@ -46,6 +54,10 @@ public class Categorie implements Serializable {
 
 	public int getCO2() {return CO2;}
 	public void setCO2(int cO2) {CO2 = cO2;}
+	
+	public List<Vehicule> getVehicules() {
+	    return vehicules;
+	  }
 
 	public Categorie() {
 		super();

@@ -1,7 +1,11 @@
 package model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.*;
+
 import model.Utilisateur;
 
 /**
@@ -16,6 +20,13 @@ public class Client extends Utilisateur implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private String nom;
 	private String prenom;
+	
+	@OneToMany(mappedBy = "client")
+	private final List<Reservation> reservations = new ArrayList<Reservation>();
+	
+	public List<Reservation> getReservations() {
+	    return reservations;
+	  }
 
 	public String getNom() {
 		return nom;

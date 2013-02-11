@@ -1,16 +1,14 @@
-<%@ page isErrorPage="true" %>
+<%@ page isErrorPage="true" import="java.io.*" contentType="text/plain"%>
 
-<html>
-<head>
-<title>Page d'erreur</title>
-</head>
-<body>
+Message:
+<%=exception.getMessage()%>
 
-<h1>Notre page d'erreur</h1></font>
-
-<!-- Afficher l'exception -->
-Nous avons détecté une exception:
-   <%= exception %>
-<a href="index.jsp">Redémarrer</a>
-</body>
-</html>
+StackTrace:
+<%
+	StringWriter stringWriter = new StringWriter();
+	PrintWriter printWriter = new PrintWriter(stringWriter);
+	exception.printStackTrace(printWriter);
+	out.println(stringWriter);
+	printWriter.close();
+	stringWriter.close();
+%>

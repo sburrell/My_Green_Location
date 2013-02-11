@@ -8,34 +8,38 @@
 
 <a href="javascript:history.back()">Retour</a>
 <%
-	List<Vehicule> vehicules = (List)request.getAttribute("vehicules");
-	if(vehicules.isEmpty()) {
-		out.print("Il n' y a aucun véhicule correspondant à votre recherche");	
-	}else {
-		%>
-		<table>
-			<tr>
-				<th>ID</th>
-				<th>Immatriculation</th>
-				<th>Categorie</th>
-				<th>Marque</th>
-				<th>Modele</th>
-				<th>Couleur</th>
-				<th>Disponible</th>
-			</tr>
-		<% for(Vehicule v : vehicules){
-			%> <tr> 
-			<td> <% out.print(v.getId()); %> </td>
-			<td> <%out.print(v.getImmatriculation()); %> </td>
-			<td> <%out.print(v.getCategorie()); %> </td>
-			<td> <%out.print(v.getMarque()); %> </td>
-			<td> <%out.print(v.getModele()); %> </td>
-			<td> <%out.print(v.getCouleur()); %> </td>
-			<td> <%out.print(v.getDisponibilite()); %> </td>
-			</tr>
-	<%	}
+	if(request.getAttribute("vehicules") == null){
+		out.print("Liste de tous les vehicules");	
+	}else{
+		List<Vehicule> vehicules = (List)request.getAttribute("vehicules");
+		if(vehicules.isEmpty()) {
+			out.print("Il n' y a aucun véhicule correspondant à votre recherche");	
+		}else {
+			%>
+			<table>
+				<tr>
+					<th>ID</th>
+					<th>Immatriculation</th>
+					<th>Categorie</th>
+					<th>Marque</th>
+					<th>Modele</th>
+					<th>Couleur</th>
+					<th>Disponible</th>
+				</tr>
+			<% for(Vehicule v : vehicules){
+				%> <tr> 
+				<td> <% out.print(v.getId()); %> </td>
+				<td> <%out.print(v.getImmatriculation()); %> </td>
+				<td> <%out.print(v.getCategorie()); %> </td>
+				<td> <%out.print(v.getMarque()); %> </td>
+				<td> <%out.print(v.getModele()); %> </td>
+				<td> <%out.print(v.getCouleur()); %> </td>
+				<td> <%out.print(v.getDisponibilite()); %> </td>
+				</tr>
+		<%	}
 		%>
 		</table>
 		<%
+		}
 	}
 %>

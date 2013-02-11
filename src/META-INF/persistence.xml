@@ -7,6 +7,8 @@
 	<class>model.Utilisateur</class>
 	<class>model.Client</class>
 	<class>model.Employe</class>
+	<class>model.Contrat</class>	
+	<class>model.Etat</class>
 		<properties>
 			<property name="javax.persistence.jdbc.url" value="jdbc:derby://localhost:1527/LocationDB;create=true"/>
 			<property name="javax.persistence.jdbc.user" value="user"/>

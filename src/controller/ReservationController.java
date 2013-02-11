@@ -2,38 +2,106 @@ package controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Enumeration;
 import java.util.List;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+import javax.persistence.Query;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import model.ConnectionDB;
+import model.*;
 
-public class ReservationController extends HttpServlet{
+/**
+ * Servlet implementation class ListeReservationController
+ */
+
+public class ReservationController extends HttpServlet {
+	private static final String PERSISTENCE_UNIT_NAME = "LocationVoitureDB";
 	private static final long serialVersionUID = 1L;
-	private ConnectionDB db;
+	private static ConnectionDB db = new ConnectionDB(PERSISTENCE_UNIT_NAME);
+       
+    /**
+     * @see HttpServlet#HttpServlet()
+     */
+    public ReservationController() {
+        super();
+        // TODO Auto-generated constructor stub
+    }
 
 	/**
-	 * Constructor
+	 * doGet => Adds a reservation then Lists Reservations
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	public ReservationController(){
-		db = new ConnectionDB("LocationVoitureDB");
-	}
-	
-	/**
-	 * List all vehicles
-	 * @throws IOException 
-	 * @throws ServletException 
-	 */
-	protected void listMyReservations(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
-		List myReservations = db.get("Reservation", "clientID", "1");
-		request.setAttribute("Reservations", myReservations);
-		//redirect vers vue jsp (@param myReservations)
-		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/myReservations"); 
-		dispatcher.forward(request, response);
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String vehiculeID = request.getParameter("vehicule_id");
+		String clientID = request.getParameter("client_id");
+		String employeID = request.getParameter("employe_id");
+		String strDateDebut = request.getParameter("dateDebut");
+		String strDateFin = request.getParameter("dateFin");
 		
+		Vehicule vehicule = (Vehicule)db.getByID("Vehicule", "id", vehiculeID);	
+		Client client = (Client)db.getByID("Client", "id", clientID);
+		Employe employe = (Employe)db.getByID("Employe", "id", employeID);
+	     
+	    SimpleDateFormat dateFormat = new SimpleDateFormat("dd/mm/yyyy"); 
+	    try {
+			Date dateDebut = dateFormat.parse(strDateDebut);
+			Date dateFin = dateFormat.parse(strDateFin);
+			
+			Reservation res = new Reservation();
+			res.setClient(client);
+			res.setEmploye(employe);
+			res.setVehicule(vehicule);
+			res.setDateDebut(dateDebut);
+			res.setDateFin(dateFin);
+			db.add(res);
+		} 
+	    catch (ParseException e) {			
+			e.printStackTrace();
+		}
+		
+		@SuppressWarnings("unchecked")
+		List<Reservation> myReservations = db.getAll("Reservation");
+		
+		request.setAttribute("Reservations", myReservations);
+		//Dispatch to jsp
+		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/listeReservation.jsp"); 
+		dispatcher.forward(request, response);
+	  }
+
+	/**
+	 * doPost => takes vehicule, sends client and employee info to jsp
+	 * Here we want to get the vehicule object, the list of employees and the client
+	 * to send to the reserveVehicule.jsp
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	@SuppressWarnings("unchecked")
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		//Vehicule
+		String id = request.getParameter("vehicule_id");
+		Vehicule v = (Vehicule)db.getByID("Vehicule", "id", id);	
+		request.setAttribute("Vehicule", v);				   
+		//List of employees
+		List<Employe> employes = db.getAll("Employe");
+		request.setAttribute("Employes", employes);
+		//List of Clients - to be changed to session object
+		List<Client> clients= db.getAll("Client");
+		request.setAttribute("Clients", clients);		
+		//Dispatch to jsp
+		RequestDispatcher dispatcher = getServletContext().
+		getRequestDispatcher("/reserverVehicule.jsp"); 
+		dispatcher.forward(request, response);		
 	}
+
+
 }
